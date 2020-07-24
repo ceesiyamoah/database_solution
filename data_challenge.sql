@@ -28,3 +28,12 @@ where when_created>'2020-07-17 00:00:00'
 group by agent_id
 order by sum(amount) desc;
 
+--6
+
+select agents.city,
+       count(agent_transactions.amount) as volume
+from agent_transactions
+join agents on agent_transactions.agent_id=agents.agent_id
+where agent_transactions.when_created>'2020-07-17 00:00:00'
+group by agents.city;
+
