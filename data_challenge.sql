@@ -37,7 +37,10 @@ FROM agent_transactions
 WHERE EXTRACT(year
               FROM when_created) = '2018'
 GROUP BY extract(month
-                 FROM when_created) --5) Over the course of the last week, how many Wave agents were “net depositors” vs. “netwithdrawers”?
+                 FROM when_created) 
+                 
+
+--5) Over the course of the last week, how many Wave agents were “net depositors” vs. “netwithdrawers”?
 
 SELECT agent_id,
        SUM(amount),
