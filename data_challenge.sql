@@ -34,6 +34,21 @@ select agents.city,
        count(agent_transactions.amount) as volume
 from agent_transactions
 join agents on agent_transactions.agent_id=agents.agent_id
-where agent_transactions.when_created>'2020-07-17 00:00:00'
-group by agents.city;
+where agent_transactions.when_created > '2020-07-17 00:00:00'
+group by agents.city
+order by volume desc;
 
+--7
+
+select agents.country,
+       agents.city,
+       count(agent_transactions.amount) as volume
+from agent_transactions
+join agents on agent_transactions.agent_id=agents.agent_id
+where agent_transactions.when_created>'2020-07-17 00:00:00'
+group by agents.city,
+         agents.country
+order by agents.country,
+         volume desc;
+
+--8
