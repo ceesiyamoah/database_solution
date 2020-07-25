@@ -52,3 +52,15 @@ order by agents.country,
          volume desc;
 
 --8
+
+select wallets.ledger_location as country,
+       transfers.kind as transferkind,
+       count(transfers.send_amount_scalar) as volume
+from wallets
+join transfers on wallets.wallet_id=transfers.source_wallet_id
+where transfers.when_created > '2020-07-17 00:00:00'
+group by country,
+         transferkind
+order by country asc,
+         transferkind desc;
+
