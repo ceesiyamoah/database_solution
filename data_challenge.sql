@@ -55,7 +55,7 @@ order by agents.country,
 
 select wallets.ledger_location as country,
        transfers.kind as transferkind,
-       count(transfers.send_amount_scalar) as volume
+       sum(transfers.send_amount_scalar) as volume
 from wallets
 join transfers on wallets.wallet_id=transfers.source_wallet_id
 where transfers.when_created > '2020-07-17 00:00:00'
@@ -64,3 +64,25 @@ group by country,
 order by country asc,
          transferkind desc;
 
+--9 check this out
+
+select wallets.ledger_location as country,
+       transfers.kind as transferkind,
+       sum(transfers.send_amount_scalar) as volume,
+       count(transfers.send_amount_scalar) as transactionCount,
+       count(distinct transfers.source_wallet_id) as uniqueWallets
+from wallets
+join transfers on wallets.wallet_id=transfers.source_wallet_id
+where transfers.when_created > '2020-07-17 00:00:00'
+group by country,
+         transferkind
+order by country asc,
+         transferkind desc;
+
+--10
+
+select source_wallet_id as wallet,
+       send_amount_scalar as amount
+from transfers
+where send_amount_scalar>10000
+    and send_amount_currency='CFA'
